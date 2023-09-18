@@ -1,6 +1,10 @@
 <center> <h1>HBNB - The Console</h1> </center>
 
-This repository contains the initial stage of a student project to build a clone of the AirBnB website. This stage implements a backend interface, or console, to manage program data. Console commands allow the user to create, update, and destroy objects, as well as manage file storage. Using a system of JSON serialization/deserialization, storage is persistent between sessions.
+## The is the second version of the AirBnB clone project.
+
+This repo contains the second phase of the project to build a clone of the AirBnB website. The initial stage dealt with implementing a backend interface, or console, to manage program data. Console commands allowed the user to create, update, and destroy objects, as well as manage file storage. Using a system of JSON serialization/deserialization, storage is persistent between sessions.
+
+In this phase of the project, an implementation of the backend interface or conolse to manage a database storage engine will be done. Users will be able to dynamically perform CRUD operations on both systems of storage.
 
 ---
 
