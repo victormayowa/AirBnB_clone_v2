@@ -8,16 +8,16 @@ class BaseModel:
     """A base class for all hbnb models"""
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
-        if not kwargs:
-            from models import storage
-            self.id = str(uuid.uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = datetime.now()
-            storage.new(self)
-        else:
+        from models import storage
+        self.id = str(uuid.uuid4())
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
+        storage.new(self)
+        if kwargs:
             kwargs['updated_at'] = datetime.now()
             kwargs['created_at'] = datetime.now()
-            del kwargs['__class__']
+            if '__class__' in kwargs:
+                del kwargs['__class__']
             self.__dict__.update(kwargs)
 
     def __str__(self):
