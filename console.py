@@ -143,11 +143,9 @@ class HBNBCommand(cmd.Cmd):
             except:
                 pass
             parameter_dict[key] = value
-        new_instance = HBNBCommand.classes[class_]()
-        # storage.new(new_instance)
+        new_instance = HBNBCommand.classes[class_](**parameter_dict)
         storage.save()
         print(new_instance.id)
-        new_instance = HBNBCommand.classes[class_](**parameter_dict)
         storage.save()
 
     def help_create(self):
