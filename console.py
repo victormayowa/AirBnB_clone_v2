@@ -125,7 +125,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         parameters = list_args[1:]
-        parameter_dict = {}
+        # parameter_dict = {}
+        new_instance = HBNBCommand.classes[class_]() 
         for parameter in parameters:
             key, value = parameter.split('=')
             if value.startswith('"') and value.endswith('"'):
@@ -141,9 +142,8 @@ class HBNBCommand(cmd.Cmd):
                     value = int(value)
             except ValueError:
                 pass
-            parameter_dict[key] = value
-        new_instance = HBNBCommand.classes[class_](**parameter_dict)
-        storage.save()
+            setattr(new_instance, key, value)
+        new_instance.save()
         print(new_instance.id)
         storage.save()
 
