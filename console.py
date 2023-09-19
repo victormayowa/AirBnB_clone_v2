@@ -126,7 +126,7 @@ class HBNBCommand(cmd.Cmd):
             return
         parameters = list_args[1:]
         # parameter_dict = {}
-        new_instance = HBNBCommand.classes[class_]() 
+        new_instance = HBNBCommand.classes[class_]()
         for parameter in parameters:
             key, value = parameter.split('=')
             if value.startswith('"') and value.endswith('"'):
