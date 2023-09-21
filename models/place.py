@@ -21,6 +21,8 @@ place_amenity = Table('place_amenity',
                              nullable=False
                              )
                       )
+
+
 class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ = 'places'
@@ -44,8 +46,8 @@ class Place(BaseModel, Base):
         reviews = relationship('Review', cascade='all, delete',
                                back_populates='place')
         amenities = relationship('Amenity', back_populates="place_amenities",
-                                secondary=place_amenity,
-                                viewonly=False)
+                                 secondary=place_amenity,
+                                 viewonly=False)
 
     else:
         city_id = ""
@@ -63,16 +65,16 @@ class Place(BaseModel, Base):
         @property
         def reviews(self):
             from models.review import Review
-            all_reviews = models.storage.all(Review)
-            return [review for review in all_reviews.values()
-                    if review.place_id == self.id]
+            revs = models.storage.all(Review)
+            return [rev for rev in revs.values()
+                    if rev.place_id == self.id]
 
         @property
         def amenities(self):
             from models.amenity import Amenity
-            all_amenities = models.storage.all(Amenity)
-            return [amenity for amenity in all_amenities.values()
-                    if amenity.id in self.amenity_ids]
+            ame = models.storage.all(Amenity)
+            return [am for am in ame.values()
+                    if am.id in self.amenity_ids]
 
         @amenities.setter
         def append(self, obj):
