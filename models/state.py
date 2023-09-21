@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """ State Module for HBNB project """
+
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
@@ -15,8 +16,6 @@ class State(BaseModel, Base):
         cities = relationship('City', backref='state')
 
     if os.getenv('HBNB_TYPE_STORAGE') == 'file':
-        @property
-        def cities(self):
             """ Getter method to return the list of City instances
             """
             from models import storage
