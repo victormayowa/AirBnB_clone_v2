@@ -16,7 +16,7 @@ class BaseModel:
         if kwargs:
             kwargs['updated_at'] = datetime.now()
             kwargs['created_at'] = datetime.now()
-            if '__class__' in kwargs:
+            if '__class__' in kwargs.keys():
                 del kwargs['__class__']
             self.__dict__.update(kwargs)
 
