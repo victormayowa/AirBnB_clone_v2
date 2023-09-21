@@ -26,12 +26,15 @@ class FileStorage:
 
     def save(self):
         """Saves storage dictionary to file"""
-        with open(FileStorage.__file_path, 'w') as f:
-            temp = {}
-            temp.update(FileStorage.__objects)
-            for key, val in temp.items():
-                temp[key] = val.to_dict()
-            json.dump(temp, f)
+        try:
+            with open(FileStorage.__file_path, 'w') as f:
+                temp = {}
+                temp.update(FileStorage.__objects)
+                for key, val in temp.items():
+                    temp[key] = val.to_dict()
+                json.dump(temp, f)
+        except Exception as e:
+            pass
 
     def reload(self):
         """Loads storage dictionary from file"""
@@ -42,7 +45,6 @@ class FileStorage:
         from models.city import City
         from models.amenity import Amenity
         from models.review import Review
-
         classes = {
                     'BaseModel': BaseModel, 'User': User, 'Place': Place,
                     'State': State, 'City': City, 'Amenity': Amenity,
@@ -53,12 +55,13 @@ class FileStorage:
             with open(FileStorage.__file_path, 'r') as f:
                 temp = json.load(f)
                 for key, val in temp.items():
-                        self.all()[key] = classes[val['__class__']](**val)
-        except FileNotFoundError:
+                    self.all()[key] = classes[val['__class__']](**val)
+        except Exception as e:
             pass
 
     def delete(self, obj=None):
-        ''' Deletes object(obj) from the public class attribute __objects if found
+        ''' Deletes object(obj) from the public
+        class attribute __objects if found
         '''
         if obj is None:
             return
