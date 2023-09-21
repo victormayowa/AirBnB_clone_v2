@@ -74,7 +74,8 @@ class Place(BaseModel, Base):
             from models.amenity import Amenity
             ame = models.storage.all(Amenity)
             return [am for am in ame.values()
-                    if am.id in self.amenity_ids]
+                    if am.id in [pair.amenity_id
+                                 for pair in self.place_amenities]]
 
         @amenities.setter
         def append(self, obj):
