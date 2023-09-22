@@ -40,7 +40,7 @@ class Place(BaseModel, Base):
         longitude = Column(Float, nullable=True)
 
         reviews = relationship("Review", back_populates="place",
-                               cascade="all, delete" )
+                               cascade="all, delete")
         user = relationship('User', back_populates='places')
         cities = relationship('City', back_populates='places')
         reviews = relationship('Review', cascade='all, delete',
