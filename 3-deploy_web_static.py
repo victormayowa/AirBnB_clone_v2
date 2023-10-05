@@ -44,3 +44,13 @@ def do_deploy(archive_path):
 
     except Exception as e:
         return False
+
+def deploy():
+    """Deploys the web_static archive to the web servers"""
+    archive_path = do_pack()
+
+    if not archive_path:
+        return False
+
+    return do_deploy(archive_path)
+
