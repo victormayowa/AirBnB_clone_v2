@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """Fabric script to deploy the web_static archive"""
 
 from fabric.api import env, put, run, local
