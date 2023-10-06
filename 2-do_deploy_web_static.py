@@ -1,47 +1,55 @@
 #!/usr/bin/python3
-"""Fabric script to deploy the web_static archive"""
-
-from fabric.api import env, put, run, local
-from os.path import exists
+"""compresses and deploy"""
+import os
 from datetime import datetime
 
-env.hosts = ['<IP web-01>', '<IP web-02>']
-env.user = 'ubuntu'
+from fabric.decorators import task, runs_once
+from fabric.api import local, run, put, env, sudo
 
 
+env.hosts, env.user = ['3.239.112.88', '3.235.184.226'], 'ubuntu'
+
+
+@runs_once
 def do_pack():
-    """Generates a .tgz archive from the contents of web_static"""
+    if not os.path.isdir('versions'):
+        os.mkdir("versions")
+    n = datetime.now()
+    archive_name = "web_static_{}{}{}{}{}{}.tgz".format(
+        n.year, n.month, n.day, n.hour, n.minute, n.second)
+    archive_path = "versions/{}".format(archive_name)
     try:
-        current_time = datetime.now().strftime("%Y%m%d%H%M%S")
-        archive_name = "versions/web_static_{}.tgz".format(current_time)
-        local("mkdir -p versions")
-        local("tar -cvzf {} web_static".format(archive_name))
-        return archive_name
-    except Exception as e:
+        local('tar -czvf {} web_static'.format(archive_path))
+        print("web_static packed: {} -> {} Bytes".format(
+              archive_path, os.stat(archive_path).st_size))
+        return archive_path
+    except Exception as err:
+        print(err)
         return None
 
 
+@task
 def do_deploy(archive_path):
-    """Deploys the web_static archive to the web servers"""
-    if not exists(archive_path):
+    if not os.path.exists(archive_path):
         return False
-
+    archive_name = archive_path.split('/')[-1]
+    release_dir = archive_name.split('.')[0]
     try:
         put(archive_path, '/tmp/')
-        filename = archive_path.split('/')[-1].split('.')[0]
-        run('mkdir -p /data/web_static/releases/{}/'.format(filename))
-        run('tar -xzf /tmp/{}.tgz -C /data/web_static/releases/{}/'.format(
-            filename, filename))
-        run('rm /tmp/{}.tgz'.format(filename))
-        run('mv /data/web_static/releases/{}/web_static/*\
-            /data/web_static/releases/{}/'.format(filename, filename))
-        run('rm -rf /data/web_static/releases/{}/web_static'.format(filename))
-        run('rm -rf /data/web_static/current')
-        run('ln -s /data/web_static/releases/{}/ '
-            '/data/web_static/current'.format(filename))
-
+        sudo("mkdir -p /data/web_static/releases/{}".format(
+             archive_name.split('.')[0]))
+        sudo('tar -xzf /tmp/{} -C /data/web_static/releases/{}'.format(
+            archive_name, release_dir))
+        run('rm /tmp/{}'.format(archive_name))
+        sudo('mv /data/web_static/releases/{d}/web_static/*\
+            /data/web_static/releases/{d}/'.format(d=release_dir))
+        sudo('rm -rf /data/web_static/releases/{}/web_static'.format(
+             release_dir))
+        sudo('rm -rf /data/web_static/current')
+        sudo('ln -s -f /data/web_static/releases/{}/\
+            /data/web_static/current'.format(release_dir))
+        print("New version deployed!")
         return True
-
-    except Exception as e:
-        print(e)
+    except Exception as err:
+        print(err)
         return False
