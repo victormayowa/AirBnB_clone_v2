@@ -12,6 +12,7 @@ env.hosts, env.user = ['3.239.112.88', '3.235.184.226'], 'ubuntu'
 
 @runs_once
 def do_pack():
+    '''create pack'''
     if not os.path.isdir('versions'):
         os.mkdir("versions")
     n = datetime.now()
@@ -30,6 +31,7 @@ def do_pack():
 
 @task
 def do_deploy(archive_path):
+    '''deploy'''
     if not os.path.exists(archive_path):
         return False
     archive_name = archive_path.split('/')[-1]
