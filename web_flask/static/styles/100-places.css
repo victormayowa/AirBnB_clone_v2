@@ -1,0 +1,45 @@
+/* styles/100-places.css */
+
+.amenities,
+.reviews {
+    margin-top: 40px;
+}
+
+.amenities h2,
+.reviews h2 {
+    font-size: 16px;
+    border-bottom: 1px solid #DDDDDD;
+    padding-bottom: 5px;
+}
+
+.amenities ul,
+.reviews ul {
+    list-style: none;
+    padding: 0;
+}
+
+.amenities li,
+.reviews li {
+    padding-left: 30px;
+    position: relative;
+    margin-bottom: 5px;
+}
+
+.fa-check-square {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #FF5A5F;
+    font-size: 12px;
+}
+
+.reviews h3 {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.reviews p {
+    font-size: 12px;
+    margin: 0;
+}
+

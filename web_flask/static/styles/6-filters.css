@@ -1,0 +1,27 @@
+/* styles/6-filters.css */
+
+.popover {
+    display: none;
+    position: absolute;
+    color: #484848;
+    background-color: #FAFAFA;
+    width: 100%;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 1;
+}
+
+.locations:hover .popover,
+.amenities:hover .popover {
+    display: block;
+    margin-top: 5px;
+}
+
+h2 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+

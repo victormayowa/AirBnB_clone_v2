@@ -1,0 +1,25 @@
+/* styles/5-filters.css */
+
+.locations,
+.amenities {
+    height: 100%;
+    width: 25%;
+    display: inline-block;
+    border-right: 1px solid #DDDDDD;
+    vertical-align: top;
+    padding: 10px;
+}
+
+.locations {
+    border-right: none;
+}
+
+h3 {
+    font-weight: 600;
+}
+
+h4 {
+    font-weight: 400;
+    font-size: 14px;
+}
+

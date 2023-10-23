@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HBNB Filters</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/3-footer.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/3-header.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/4-common.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/6-filters.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="clearfix">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='images/logo.png') }}">
+            </div>
+            <div class="title">
+                <h1>HBNB</h1>
+            </div>
+        </header>
+        <div class="filters">
+            <h2>Filters</h2>
+            <div class="locations">
+                <h3>States</h3>
+                <ul class="locations-list">
+                    {% for state in states %}
+                        <li>
+                            <input type="checkbox" class="location" name="state" value="{{ state.id }}">
+                            {{ state.name }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="locations">
+                <h3>Cities</h3>
+                <ul class="locations-list">
+                    {% for city in cities %}
+                        <li>
+                            <input type="checkbox" class="location" name="city" value="{{ city.id }}">
+                            {{ city.name }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="amenities">
+                <h3>Amenities</h3>
+                <ul class="amenities-list">
+                    {% for amenity in amenities %}
+                        <li>
+                            <input type="checkbox" class="amenity" name="amenity" value="{{ amenity.id }}">
+                            {{ amenity.name }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
